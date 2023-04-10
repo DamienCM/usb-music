@@ -87,7 +87,7 @@ class USBMusicSkill(CommonPlaySkill):
         self.init_usb_monitor_thread()
         self.settings_change_callback = self.on_websettings_changed
         self.on_websettings_changed()
-        self.create_library(source_path=self.local_path, source_type="local")
+        self.song_list = self.merge_library(self.song_list, self.create_library(source_path=self.local_path, source_type="local"))
 
     def on_websettings_changed(self):  # called when updating mycroft home page
         self.auto_play = self.settings.get("auto_play", False)  # used to enable / disable auto_play

@@ -1,3 +1,9 @@
+# Todo 
+# 1. Auto init local library
+# 2. Next prev song
+# 3. Shuffle 
+# 4. Copy from usb new songs
+
 from mycroft.skills.common_play_skill import CommonPlaySkill, CPSMatchLevel
 from adapt.intent import IntentBuilder
 from mycroft.skills.core import intent_handler, intent_file_handler
@@ -81,6 +87,7 @@ class USBMusicSkill(CommonPlaySkill):
         self.init_usb_monitor_thread()
         self.settings_change_callback = self.on_websettings_changed
         self.on_websettings_changed()
+        self.create_library(source_path=self.local_path, source_type="local")
 
     def on_websettings_changed(self):  # called when updating mycroft home page
         self.auto_play = self.settings.get("auto_play", False)  # used to enable / disable auto_play

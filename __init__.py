@@ -322,6 +322,7 @@ class USBMusicSkill(CommonPlaySkill):
 
     def play_all(self, library):
         LOG.info('Automatically playing the USB Device')
+        self.mediaplayer.clear_list()
         tracklist = []
         for each_song in library:
             LOG.info("CPS Now Playing... " + each_song['label'] + " from location: " + each_song['location'])
@@ -440,7 +441,7 @@ class USBMusicSkill(CommonPlaySkill):
         self.mediaplayer.clear_list()
         tracklist = []
         LOG.info('USBMusicSkill, Playback received the following phrase and Data: ' + phrase + ' ' + str(data))
-        for each_song in data:
+        for each_song in self.song_list:
             LOG.info("CPS Now Playing... " + each_song['label'] + " from location: " + each_song['location'])
             url = each_song['location']
             tracklist.append(url)

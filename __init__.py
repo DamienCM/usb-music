@@ -327,7 +327,7 @@ class USBMusicSkill(CommonPlaySkill):
             LOG.info("CPS Now Playing... " + each_song['label'] + " from location: " + each_song['location'])
             url = each_song['location']
             tracklist.append(url)
-        random.shuffle(tracklist)
+        random.shuffle(tracklist,random=random.random())
         self.speak_dialog('now.playing')
         wait_while_speaking()
         self.mediaplayer.add_list(tracklist)

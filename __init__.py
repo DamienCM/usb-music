@@ -437,6 +437,7 @@ class USBMusicSkill(CommonPlaySkill):
             Called by the playback control skill to start playback if the
             skill is selected (has the best match level)
         """
+        self.mediaplayer.clear_list()
         tracklist = []
         LOG.info('USBMusicSkill, Playback received the following phrase and Data: ' + phrase + ' ' + str(data))
         for each_song in data:

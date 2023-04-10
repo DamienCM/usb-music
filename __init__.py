@@ -323,15 +323,11 @@ class USBMusicSkill(CommonPlaySkill):
     def play_all(self, library):
         LOG.info('Automatically playing the USB Device')
         tracklist = []
-        LOG.info("Before shuffle")
         for each_song in library:
             LOG.info("CPS Now Playing... " + each_song['label'] + " from location: " + each_song['location'])
             url = each_song['location']
             tracklist.append(url)
-        LOG.info("After shuffle")
-        for each_song in tracklist:
-            LOG.info("CPS Now Playing... " + each_song['label'] + " from location: " + each_song['location'])
-        tracklist = random.shuffle(tracklist,random.random())
+        random.shuffle(tracklist,random.random())
         self.speak_dialog('now.playing')
         wait_while_speaking()
         self.mediaplayer.add_list(tracklist)
@@ -447,6 +443,8 @@ class USBMusicSkill(CommonPlaySkill):
             LOG.info("CPS Now Playing... " + each_song['label'] + " from location: " + each_song['location'])
             url = each_song['location']
             tracklist.append(url)
+        # randomizing song order
+        random.shuffle(tracklist,random.random())
         #LOG.info(str(tracklist))
         self.speak_dialog('now.playing')
         wait_while_speaking()

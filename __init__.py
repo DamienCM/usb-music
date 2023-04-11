@@ -196,15 +196,10 @@ class USBMusicSkill(CommonPlaySkill):
             LOG.info("Primary Regex Key Not Found")
             if secondary_regex:
                 key_found = re.search(secondary_regex, str_request)
-            if key_found.group("any"):
-                LOG.info("Secondary Regex Key Found : any")
-                return_item = key_found.group("any")
-                return_type = "any"
-            elif key_found.group("next"):
-                LOG.info("Secondary Regex Key Found : next")
-                return_item = key_found.group("next")
-                return_type = "next"
-                
+                if key_found.group("any"):
+                    LOG.info("Secondary Regex Key Found : any")
+                    return_item = key_found.group("any")
+                    return_type = "any"
             else:
                 LOG.info("Secondary Regex Key Not Found")
                 return_item = "none"

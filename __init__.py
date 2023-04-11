@@ -421,11 +421,9 @@ class USBMusicSkill(CommonPlaySkill):
             LOG.info("USBMusicSkill is Searching for requested media...")
             play_request = self.parse_music_utterance(phrase)  # get the requested Music Item
             LOG.info("USBMusicSkill Parse Routine Returned: " + str(play_request))
-            if play_request[1]=="Next":
-                self.next_song()
-                return None
             
-            music_playlist = self.search_music_library(play_request[0],
+            if play_request[1] != "none" :
+                music_playlist = self.search_music_library(play_request[0],
                                                        category=play_request[1])  # search for the item in the library
             if music_playlist is None:
                 return None  # until a match is found

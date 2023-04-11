@@ -199,7 +199,7 @@ class USBMusicSkill(CommonPlaySkill):
                 LOG.info("Secondary Regex Key Found : any")
                 return_item = key_found.group("any")
                 return_type = "any"
-            elif key_found.group("any"):
+            elif key_found.group("next"):
                 LOG.info("Secondary Regex Key Found : next")
                 return_item = key_found.group("next")
                 return_type = "next"

@@ -88,10 +88,10 @@ class USBMusicSkill(CommonPlaySkill):
         self.settings_change_callback = self.on_websettings_changed
         self.on_websettings_changed()
         self.song_list = self.merge_library(self.song_list, self.create_library(source_path=self.local_path, source_type="local"))
-        self.add_event('mycroft.audio.service.next', self.next_music())
-        self.add_event('mycroft.audio.service.prev', self.previous_music())
-        self.add_event('mycroft.audio.service.pause', self.pause_music())
-        self.add_event('mycroft.audio.service.resume', self.resume_music())
+        self.add_event('mycroft.audio.service.next', self.next_music)
+        self.add_event('mycroft.audio.service.prev', self.previous_music)
+        self.add_event('mycroft.audio.service.pause', self.pause_music)
+        self.add_event('mycroft.audio.service.resume', self.resume_music)
 
     def on_websettings_changed(self):  # called when updating mycroft home page
         self.auto_play = self.settings.get("auto_play", False)  # used to enable / disable auto_play

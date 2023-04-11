@@ -167,10 +167,7 @@ class USBMusicSkill(CommonPlaySkill):
             secondary_regex = r"((?<=all) (?P<any>.*$))"
         elif str_request.find('any') != -1:
             secondary_regex = r"((?<=any) (?P<any>.*$))"
-        # navigation
-        elif str_request.find('next') != -1:
-            self.next_song()
-            
+        
         else:
             secondary_regex = r"((?<=play) (?P<any>.*$))"
         key_found = re.search(primary_regex, str_request)
@@ -465,9 +462,19 @@ class USBMusicSkill(CommonPlaySkill):
         pass
     
     
-    def next_song(self):
+    def next_music(self):
         "Skipping current song"
         self.mediaplayer.next()
+        
+    def previous_music(self):
+        self.mediaplayer.previous()
+        
+    def pause_music(self):
+        self.mediaplayer.pause()
+        
+    def resume_music(self):
+        self.mediaplayer.resume()
+    
         
     
 
@@ -558,8 +565,24 @@ class USBMusicSkill(CommonPlaySkill):
     @intent_handler(IntentBuilder('').require("NextKeyword"))
     def next_song_intent(self, message):
         LOG.info("Next music requested, skipping current song...")
-        self.next_song()
+        self.next_music()
         
+    @intent_handler(IntentBuilder('').require("PreviousKeyword"))
+    def next_song_intent(self, message):
+        LOG.info("Replaying previous music requested, skipping current song...")
+        self.previous_music()
+
+    @intent_handler(IntentBuilder('').require("PauseKeyword"))
+    def pause_intent(self, message):
+        LOG.info("Pausing music.")
+        self.pause_music()
+
+    @intent_handler(IntentBuilder('').require("ResumeKeyword"))
+    def pause_intent(self, message):
+        LOG.info("Resuming music.")
+        self.resume_music()
+
+
 
     def stop(self):
         if self.audio_state == 'playing':

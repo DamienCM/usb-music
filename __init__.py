@@ -88,6 +88,10 @@ class USBMusicSkill(CommonPlaySkill):
         self.settings_change_callback = self.on_websettings_changed
         self.on_websettings_changed()
         self.song_list = self.merge_library(self.song_list, self.create_library(source_path=self.local_path, source_type="local"))
+        self.add_event('mycroft.audio.service.next', self.next_music())
+        self.add_event('mycroft.audio.service.prev', self.previous_music())
+        self.add_event('mycroft.audio.service.pause', self.pause_music())
+        self.add_event('mycroft.audio.service.resume', self.resume_music())
 
     def on_websettings_changed(self):  # called when updating mycroft home page
         self.auto_play = self.settings.get("auto_play", False)  # used to enable / disable auto_play
@@ -562,25 +566,9 @@ class USBMusicSkill(CommonPlaySkill):
         LOG.info('Library Size: ' + str(len(self.song_list)))
 
 
-    @intent_handler(IntentBuilder('').require("NextKeyword"))
-    def next_song_intent(self, message):
-        LOG.info("Next music requested, skipping current song...")
-        self.next_music()
-        
-    @intent_handler(IntentBuilder('').require("PreviousKeyword"))
-    def next_song_intent(self, message):
-        LOG.info("Replaying previous music requested, skipping current song...")
-        self.previous_music()
+    # Handle common audio intents.  'Audio' skills should listen for the
+    # common messages:
 
-    @intent_handler(IntentBuilder('').require("PauseKeyword"))
-    def pause_intent(self, message):
-        LOG.info("Pausing music.")
-        self.pause_music()
-
-    @intent_handler(IntentBuilder('').require("ResumeKeyword"))
-    def pause_intent(self, message):
-        LOG.info("Resuming music.")
-        self.resume_music()
 
 
 

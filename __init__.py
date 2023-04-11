@@ -136,7 +136,7 @@ class USBMusicSkill(CommonPlaySkill):
         try:
             self.usb_monitor.id = 101
             self.usb_monitor.idStop = True
-            self.usb_monitor.idThread.join()
+            self.usb_monitor.idThread().join()
         except Exception as e:
             LOG.error(e)  # if there is an error attempting the workout then here....
 

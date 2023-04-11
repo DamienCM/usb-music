@@ -167,6 +167,9 @@ class USBMusicSkill(CommonPlaySkill):
             secondary_regex = r"((?<=all) (?P<any>.*$))"
         elif str_request.find('any') != -1:
             secondary_regex = r"((?<=any) (?P<any>.*$))"
+        elif str_request.find('next') != -1:
+            secondary_regex = r"((?<=next) (?P<next>.*$))"
+            
         else:
             secondary_regex = r"((?<=play) (?P<any>.*$))"
         key_found = re.search(primary_regex, str_request)
@@ -193,9 +196,14 @@ class USBMusicSkill(CommonPlaySkill):
             if secondary_regex:
                 key_found = re.search(secondary_regex, str_request)
             if key_found.group("any"):
-                LOG.info("Secondary Regex Key Found")
+                LOG.info("Secondary Regex Key Found : any")
                 return_item = key_found.group("any")
                 return_type = "any"
+            elif key_found.group("any"):
+                LOG.info("Secondary Regex Key Found : next")
+                return_item = key_found.group("next")
+                return_type = "next"
+                
             else:
                 LOG.info("Secondary Regex Key Not Found")
                 return_item = "none"
@@ -417,6 +425,10 @@ class USBMusicSkill(CommonPlaySkill):
             LOG.info("USBMusicSkill is Searching for requested media...")
             play_request = self.parse_music_utterance(phrase)  # get the requested Music Item
             LOG.info("USBMusicSkill Parse Routine Returned: " + str(play_request))
+            if play_request[1]=="Next":
+                self.next_song()
+                return None
+            
             music_playlist = self.search_music_library(play_request[0],
                                                        category=play_request[1])  # search for the item in the library
             if music_playlist is None:

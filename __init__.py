@@ -1,7 +1,7 @@
 # Todo 
-# 1. Auto init local library
-# 2. Next prev song
-# 3. Shuffle 
+# 1. Auto init local library DONE
+# 2. Next prev song 
+# 3. Shuffle  DONE
 # 4. Copy from usb new songs
 
 from mycroft.skills.common_play_skill import CommonPlaySkill, CPSMatchLevel
@@ -456,6 +456,13 @@ class USBMusicSkill(CommonPlaySkill):
         self.mediaplayer.play()
         self.audio_state = 'playing'
         pass
+    
+    
+    def next_song(self):
+        "Skipping current song"
+        self.mediaplayer.next()
+        
+    
 
     @intent_handler(IntentBuilder('').require("UpdateKeyword").require("USBKeyword").require("LibraryKeyword"))
     def handle_update_usb_library_intent(self, message):
@@ -539,6 +546,13 @@ class USBMusicSkill(CommonPlaySkill):
     def handle_show_music_library_intent(self, message):
         LOG.info(str(self.song_list))
         LOG.info('Library Size: ' + str(len(self.song_list)))
+
+
+    @intent_handler(IntentBuilder('').require("NextKeyword"))
+    def next_song_intent(self, message):
+        LOG.info("Next music requested, skipping current song...")
+        self.next_song()
+        
 
     def stop(self):
         if self.audio_state == 'playing':

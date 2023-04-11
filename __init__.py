@@ -167,8 +167,9 @@ class USBMusicSkill(CommonPlaySkill):
             secondary_regex = r"((?<=all) (?P<any>.*$))"
         elif str_request.find('any') != -1:
             secondary_regex = r"((?<=any) (?P<any>.*$))"
+        # navigation
         elif str_request.find('next') != -1:
-            secondary_regex = r"((?<=next) (?P<next>.*$))"
+            self.next_song()
             
         else:
             secondary_regex = r"((?<=play) (?P<any>.*$))"

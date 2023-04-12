@@ -452,12 +452,18 @@ class USBMusicSkill(CommonPlaySkill):
         LOG.info('USBMusicSkill, Playback received the following phrase')
         LOG.info('and Data: ')
         LOG.info( phrase + ' ' + str(data))
+        self.song_list =  random.shuffle(self.song_list,random.random)
         for each_song in self.song_list:
             LOG.info("CPS Now Playing... " + each_song['label'] + " from location: " + each_song['location'])
             url = each_song['location']
             tracklist.append(url)
+            
+        for each_song in data:
+            LOG.info("CPS Now Playing... " + each_song['label'] + " from location: " + each_song['location'])
+            url = each_song['location']
+            tracklist.insert(0,url)
         # randomizing song order
-        random.shuffle(tracklist,random.random)
+        # random.shuffle(tracklist,random.random)
         #LOG.info(str(tracklist))
         self.speak_dialog('now.playing')
         wait_while_speaking()

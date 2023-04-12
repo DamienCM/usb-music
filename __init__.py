@@ -161,7 +161,7 @@ class USBMusicSkill(CommonPlaySkill):
         return_type = "any"
         str_request = str(phrase)
         LOG.info("Parse Music : " + str_request)
-        primary_regex = r"((?<=album) (?P<album>.*$))|((?<=by) (?P<artist1>.*$))|((?<=artist) (?P<artist>.*$))|((?<=song) (?P<label>.*$))|((?<=on youtube) (?P<youtube_query>.*$))"
+        primary_regex = r"((?<=album) (?P<album>.*$))|((?<=by) (?P<artist1>.*$))|((?<=artist) (?P<artist>.*$))|((?<=song) (?P<label>.*$))|(?P<youtube_query>.*$))((?<=on youtube)"
         secondary_regex = None
         if str_request.find('some') != -1:
             secondary_regex = r"((?<=some) (?P<any>.*$))"

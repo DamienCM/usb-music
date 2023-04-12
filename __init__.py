@@ -463,6 +463,7 @@ class USBMusicSkill(CommonPlaySkill):
         wait_while_speaking()
         #self.audio_service.play(tracklist)
         #random.shuffle(tracklist)
+        self.merge_library(data,tracklist)
         self.mediaplayer.add_list(tracklist)
         self.mediaplayer.play()
         self.audio_state = 'playing'

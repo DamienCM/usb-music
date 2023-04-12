@@ -449,9 +449,9 @@ class USBMusicSkill(CommonPlaySkill):
         """
         # self.mediaplayer.clear_list() cannot select music with this methdo
         tracklist = []
-        LOG.log('USBMusicSkill, Playback received the following phrase')
-        LOG.log('and Data: ')
-        LOG.log( phrase + ' ' + str(data))
+        LOG.info('USBMusicSkill, Playback received the following phrase')
+        LOG.info('and Data: ')
+        LOG.info( phrase + ' ' + str(data))
         for each_song in self.song_list:
             LOG.info("CPS Now Playing... " + each_song['label'] + " from location: " + each_song['location'])
             url = each_song['location']

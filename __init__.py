@@ -452,7 +452,7 @@ class USBMusicSkill(CommonPlaySkill):
         LOG.info('USBMusicSkill, Playback received the following phrase')
         LOG.info('and Data: ')
         LOG.info( phrase + ' ' + str(data))
-        self.song_list =  random.shuffle(self.song_list,random.random)
+        random.shuffle(self.song_list,random.random)
         for each_song in self.song_list:
             LOG.info("CPS Now Playing... " + each_song['label'] + " from location: " + each_song['location'])
             url = each_song['location']

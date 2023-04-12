@@ -160,8 +160,8 @@ class USBMusicSkill(CommonPlaySkill):
         return_item = "none"
         return_type = "any"
         str_request = str(phrase)
-        LOG.info("Parse Music Received: " + str_request)
-        primary_regex = r"((?<=album) (?P<album>.*$))|((?<=by) (?P<artist1>.*$))|((?<=artist) (?P<artist>.*$))|((?<=song) (?P<label>.*$))"
+        LOG.info("Parse Music : " + str_request)
+        primary_regex = r"((?<=album) (?P<album>.*$))|((?<=by) (?P<artist1>.*$))|((?<=artist) (?P<artist>.*$))|((?<=song) (?P<label>.*$))|((?<=on) (?P<platform>.*$))"
         secondary_regex = None
         if str_request.find('some') != -1:
             secondary_regex = r"((?<=some) (?P<any>.*$))"
@@ -403,6 +403,7 @@ class USBMusicSkill(CommonPlaySkill):
                 }
                 new_library.append(info)
         song_count = len(new_library)
+        random.shuffle(new_library,random.random)
         if song_count == 0:
             self.speak_dialog('no.files', data={"source": str(source_type)}, expect_response=False)
         else:
@@ -446,7 +447,7 @@ class USBMusicSkill(CommonPlaySkill):
             Called by the playback control skill to start playback if the
             skill is selected (has the best match level)
         """
-        self.mediaplayer.clear_list()
+        # self.mediaplayer.clear_list() cannot select music with this methdo
         tracklist = []
         LOG.info('USBMusicSkill, Playback received the following phrase and Data: ' + phrase + ' ' + str(data))
         for each_song in self.song_list:

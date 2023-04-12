@@ -161,7 +161,7 @@ class USBMusicSkill(CommonPlaySkill):
         return_type = "any"
         str_request = str(phrase)
         LOG.info("Parse Music : " + str_request)
-        primary_regex = r"((?<=album) (?P<album>.*$))|((?<=by) (?P<artist1>.*$))|((?<=artist) (?P<artist>.*$))|((?<=song) (?P<label>.*$))|((?<=on) (?P<platform>.*$))"
+        primary_regex = r"((?<=album) (?P<album>.*$))|((?<=by) (?P<artist1>.*$))|((?<=artist) (?P<artist>.*$))|((?<=song) (?P<label>.*$))|((?<=on youtube) (?P<youtube_query>.*$))"
         secondary_regex = None
         if str_request.find('some') != -1:
             secondary_regex = r"((?<=some) (?P<any>.*$))"
@@ -177,7 +177,11 @@ class USBMusicSkill(CommonPlaySkill):
         key_found = re.search(primary_regex, str_request)
         if key_found:
             LOG.info("Primary Regex Key Found")
-            if key_found.group("label"):
+            if key_found.group("youtube_query"):
+                LOG.info("Platform search desired")
+                return_item = key_found.group("youtube_query")
+                return_type = "youtube_query"
+            elif key_found.group("label"):
                 LOG.info("found label")
                 return_item = key_found.group("label")
                 return_type = "label"
@@ -192,7 +196,8 @@ class USBMusicSkill(CommonPlaySkill):
             elif key_found.group("album"):
                 LOG.info("found album")
                 return_item = key_found.group("album")
-                return_type = "album"
+                return_type = "album"            
+
         else:
             LOG.info("Primary Regex Key Not Found")
             if secondary_regex:
@@ -229,10 +234,16 @@ class USBMusicSkill(CommonPlaySkill):
             if len(found_list) == 0:
                 LOG.info("Album: " + search_string + ", Not Found!")
                 return
+        elif str(category)=="youtube_query":
+            found_list = self.search_music_youtube(search_string)
         else:
             found_list = self.search_music_item(search_string, category=str(category))
         if len(found_list) > 0:
             return found_list
+
+    def search_music_youtube(self,phrase):
+        LOG.info(f"Searching YOUTUBE for {phrase}")
+        return 0
 
     def search_music_item(self, search_item, category="label"):
         # category options: label, artist, album
@@ -274,7 +285,7 @@ class USBMusicSkill(CommonPlaySkill):
                 else:
                     temp_list.append(info)
         found_list = temp_list
-        return found_list  # returns a dictionary of matched movies
+        return found_list  # returns a dictionary of matched songs
 
     def merge_library(self, dict1, dict2):
         return dict1 + dict2

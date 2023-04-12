@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+File "/home/pi/mycroft-core/mycroft/skills/mycroft_skill/event_container.py", line 73, in wrapper
+handler(message)
+File "/home/pi/mycroft-core/mycroft/skills/common_play_skill.py", line 172, in __handle_play_start
+self.CPS_start(phrase, data)
+File "/opt/mycroft/skills/usb-music.damiencm/__init__.py", line 473, in CPS_start
+self.mediaplayer.add_list(tracklist)
+File "/home/pi/mycroft-core/mycroft/audio/services/vlc/__init__.py", line 65, in add_list
+self.track_list.add_media(self.instance.media_new(t))
+File "/home/pi/mycroft-core/.venv/lib/python3.7/site-packages/vlc.py", line 1595, in media_new
+m = libvlc_media_new_path(self, str_to_bytes(os.path.normpath(mrl)))
+File "/usr/lib/python3.7/posixpath.py", line 340, in normpath
+path = os.fspath(path)
+TypeError: expected str, bytes or os.PathLike object, not dict
+^--- NEWEST ---^
+History =========================================================

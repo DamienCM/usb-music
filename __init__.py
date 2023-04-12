@@ -447,7 +447,7 @@ class USBMusicSkill(CommonPlaySkill):
             Called by the playback control skill to start playback if the
             skill is selected (has the best match level)
         """
-        # self.mediaplayer.clear_list() cannot select music with this methdo
+        self.mediaplayer.clear_list() cannot select music with this methdo
         tracklist = []
         LOG.info('USBMusicSkill, Playback received the following phrase')
         LOG.info('and Data: ')

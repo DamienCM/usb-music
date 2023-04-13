@@ -257,7 +257,7 @@ class USBMusicSkill(CommonPlaySkill):
         # LOG.info(f"YTB-DL returned with -- output :  {output}")
         # LOG.info(f"YTB-DL returned with -- error :  {error}")
         return [{
-                "location":"/tmp/usb-music/request.m4a",
+                "location":"/home/pi/.usb-music/temp/request.m4a",
                 "label": "Unknown",
                 "album": "Unknown",
                 "artist": "Unknown",

@@ -246,11 +246,11 @@ class USBMusicSkill(CommonPlaySkill):
     def search_music_youtube(self,phrase):
         LOG.info(f"Searching YOUTUBE for {phrase}")
         try :
-            shutil.rmtree( '/tmp/usb-music')
+            shutil.rmtree( '/home/pi/.usb-music/temp')
         except: 
             pass
-        os.mkdir('/tmp/usb-music')
-        bash_command = f'yt-dlp -x -f mp4 "ytsearch1:{phrase}" --geo-bypass --metadata-from-title "(?P<artist>.+?) - (?P<title>.+)" --xattrs --embed-thumbnail -o /tmp/usb-music/request'
+        os.mkdir('/home/pi/.usb-music/temp')
+        bash_command = f'yt-dlp -x -f mp4 "ytsearch1:{phrase}" --geo-bypass --metadata-from-title "(?P<artist>.+?) - (?P<title>.+)" --xattrs --embed-thumbnail -o /home/pi/.usb-music/temp/request'
         process = subprocess.Popen(bash_command.split(), stdout=subprocess.PIPE)
         output, error = process.communicate()
         if error is None :

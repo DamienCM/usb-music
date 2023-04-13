@@ -256,10 +256,10 @@ class USBMusicSkill(CommonPlaySkill):
         if error is None :
             return {
                 "location":"/tmp/usb-music/request.m4a",
-                "label": None,
-                "album": None,
-                "artist": None,
-                "source": None
+                "label": "Unknown",
+                "album": "Unknown",
+                "artist": "Unknown",
+                "source": "Youtube"
                 }
         else :
             return None

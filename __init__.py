@@ -256,17 +256,13 @@ class USBMusicSkill(CommonPlaySkill):
         # output, error = process.communicate()
         # LOG.info(f"YTB-DL returned with -- output :  {output}")
         # LOG.info(f"YTB-DL returned with -- error :  {error}")
-
-        if error is None :
-            return [{
+        return [{
                 "location":"/tmp/usb-music/request.m4a",
                 "label": "Unknown",
                 "album": "Unknown",
                 "artist": "Unknown",
                 "source": "Youtube"
                 }]
-        else :
-            return None
 
 
     def search_music_item(self, search_item, category="label"):

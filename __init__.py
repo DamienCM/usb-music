@@ -245,7 +245,10 @@ class USBMusicSkill(CommonPlaySkill):
 
     def search_music_youtube(self,phrase):
         LOG.info(f"Searching YOUTUBE for {phrase}")
-        shutil.rmtree( '/tmp/usb-music')
+        try :
+            shutil.rmtree( '/tmp/usb-music')
+        except: 
+            pass
         os.mkdir('/tmp/usb-music')
         bash_command = f'yt-dlp -x -f mp4 "ytsearch1:{phrase}" --geo-bypass --metadata-from-title "(?P<artist>.+?) - (?P<title>.+)" --xattrs --embed-thumbnail -o /tmp/usb-music/request'
         process = subprocess.Popen(bash_command.split(), stdout=subprocess.PIPE)

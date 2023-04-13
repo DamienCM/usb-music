@@ -251,8 +251,12 @@ class USBMusicSkill(CommonPlaySkill):
             pass
         os.mkdir('/home/pi/.usb-music/temp')
         bash_command = f'yt-dlp -x -f mp4 "ytsearch1:{phrase}" --geo-bypass --metadata-from-title "(?P<artist>.+?) - (?P<title>.+)" --xattrs --embed-thumbnail -o /home/pi/.usb-music/temp/request'
-        process = subprocess.Popen(bash_command.split(), stdout=subprocess.PIPE)
+        LOG.inf(f"YTB-DL :  {bash_command}")
+        process = subprocess.run(bash_command.split(), stdout=subprocess.PIPE)
         output, error = process.communicate()
+        LOG.inf(f"YTB-DL returned with -- output :  {output}")
+        LOG.inf(f"YTB-DL returned with -- error :  {error}")
+
         if error is None :
             return [{
                 "location":"/tmp/usb-music/request.m4a",

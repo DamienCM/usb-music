@@ -26,6 +26,8 @@ import re
 import time
 import os
 from os.path import dirname
+import subprocess
+import shutil
 
 import random
 
@@ -243,7 +245,16 @@ class USBMusicSkill(CommonPlaySkill):
 
     def search_music_youtube(self,phrase):
         LOG.info(f"Searching YOUTUBE for {phrase}")
-        return 0
+        shutil.rmtree( '/tmp/usb-music')
+        os.mkdir('/tmp/usb-music')
+        bash_command = f'yt-dlp -x -f mp4 "ytsearch1:{phrase}" --geo-bypass --metadata-from-title "(?P<artist>.+?) - (?P<title>.+)" --xattrs --embed-thumbnail -o /tmp/usb-music/request'
+        process = subprocess.Popen(bash_command.split(), stdout=subprocess.PIPE)
+        output, error = process.communicate()
+        if error is None :
+            return ["/tmp/usb-music/request.m4a"]
+        else :
+            return None
+
 
     def search_music_item(self, search_item, category="label"):
         # category options: label, artist, album

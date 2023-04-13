@@ -250,9 +250,9 @@ class USBMusicSkill(CommonPlaySkill):
         except: 
             pass
         os.mkdir('/home/pi/.usb-music/temp')
-        bash_command = f'yt-dlp -x -f mp4 "ytsearch1:{phrase}" --geo-bypass --metadata-from-title "(?P<artist>.+?) - (?P<title>.+)" --xattrs --embed-thumbnail -o /home/pi/.usb-music/temp/request'
-        LOG.info(f"YTB-DL :  {bash_command}")
-        process = subprocess.run(["yt-dlp", "-x", "-f", "mp4", f'"ytsearch1:{phrase}"',"--geo-bypass", "--metadata-from-title", '"(?P<artist>.+?) - (?P<title>.+)"',"--xattrs","--embed-thumbnail--embed-thumbnail","-o","/home/pi/.usb-music/temp/request"], stdout=subprocess.PIPE)
+        # bash_command = f'yt-dlp -x -f mp4 "ytsearch1:{phrase}" --geo-bypass --metadata-from-title "(?P<artist>.+?) - (?P<title>.+)" --xattrs --embed-thumbnail -o /home/pi/.usb-music/temp/request'
+        # LOG.info(f"YTB-DL :  {bash_command}")
+        process = subprocess.run(["yt-dlp", "-x", "-f", "mp4", f'"ytsearch1:{phrase}"',"--geo-bypass", "--metadata-from-title", '"(?P<artist>.+?) - (?P<title>.+)"',"--xattrs","--embed-thumbnail","-o","/home/pi/.usb-music/temp/request"], stdout=subprocess.PIPE)
         # output, error = process.communicate()
         # LOG.info(f"YTB-DL returned with -- output :  {output}")
         # LOG.info(f"YTB-DL returned with -- error :  {error}")

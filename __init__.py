@@ -254,13 +254,13 @@ class USBMusicSkill(CommonPlaySkill):
         process = subprocess.Popen(bash_command.split(), stdout=subprocess.PIPE)
         output, error = process.communicate()
         if error is None :
-            return {
+            return [{
                 "location":"/tmp/usb-music/request.m4a",
                 "label": "Unknown",
                 "album": "Unknown",
                 "artist": "Unknown",
                 "source": "Youtube"
-                }
+                }]
         else :
             return None
 

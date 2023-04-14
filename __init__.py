@@ -267,7 +267,7 @@ class USBMusicSkill(CommonPlaySkill):
         wait_while_speaking()
         if cp == 'yes' :
             try : 
-                shutil.copyfile(temp_dir_files[0],self.local_path)
+                shutil.copyfile(f"{temp_dir}/{temp_dir_files[0]}",self.local_path)
                 self.speak("Successfully copied your file")
                 wait_while_speaking()
             except :

@@ -244,7 +244,7 @@ class USBMusicSkill(CommonPlaySkill):
             return found_list
 
     def search_music_youtube(self,phrase):
-        LOG.info(f"Searching YOUTUBE for {phrase}")
+        LOG.info(f"Searching Youtube for {phrase}")
         temp_dir = '/home/pi/.usb-music/temp'
         try :
             shutil.rmtree(temp_dir)
@@ -258,7 +258,7 @@ class USBMusicSkill(CommonPlaySkill):
         # LOG.info(f"YTB-DL returned with -- output :  {output}")
         # LOG.info(f"YTB-DL returned with -- error :  {error}")
         temp_dir_files = os.listdir(temp_dir)
-        LOG.info(f"Downloaded follwing files : {temp_dir_files}")
+        LOG.info(f"yt-dlp downloaded following files : {temp_dir_files}")
         return [{
                 "location":f"{temp_dir}/{temp_dir_files[0]}",
                 "label": "Unknown",

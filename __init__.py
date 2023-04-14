@@ -256,7 +256,7 @@ class USBMusicSkill(CommonPlaySkill):
         os.mkdir(temp_dir)
         # bash_command = f'yt-dlp -x -f mp4 "ytsearch1:{phrase}" --geo-bypass --metadata-from-title "(?P<artist>.+?) - (?P<title>.+)" --xattrs --embed-thumbnail -o /home/pi/.usb-music/temp/request'
         # LOG.info(f"YTB-DL :  {bash_command}")
-        process = subprocess.run(["yt-dlp", "-x", "-f", "mp4", f"ytsearch1:{phrase}","--geo-bypass", "--metadata-from-title", '"(?P<artist>.+?) - (?P<title>.+)"',"--xattrs","--embed-thumbnail","-o",f"/{temp_dir}/%(title)s-%(id)s.%(ext)s"], stdout=subprocess.PIPE)
+        process = subprocess.run(["yt-dlp", "-x", "-f", "mp4", f"ytsearch1:{phrase}","--geo-bypass", "--metadata-from-title", '"(?P<artist>.+?) - (?P<title>.+)"',"--xattrs","--embed-thumbnail","-o",f"/{temp_dir}/%(title)s.%(ext)s"], stdout=subprocess.PIPE)
         # output, error = process.communicate()
         # LOG.info(f"YTB-DL returned with -- output :  {output}")
         # LOG.info(f"YTB-DL returned with -- error :  {error}")
@@ -268,7 +268,7 @@ class USBMusicSkill(CommonPlaySkill):
         wait_while_speaking()
         if cp == 'yes' :
             try : 
-                shutil.copyfile(f"{temp_dir}/{temp_dir_files[0]}",self.local_path)
+                shutil.copyfile(f"{temp_dir}/{temp_dir_files[0]}",f"{self.local_path}/{temp_dir_files[0]}")
                 self.speak("Successfully copied your file")
                 wait_while_speaking()
             except Exception as e :

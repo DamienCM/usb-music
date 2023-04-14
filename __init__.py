@@ -262,11 +262,14 @@ class USBMusicSkill(CommonPlaySkill):
         temp_dir_files = os.listdir(temp_dir)
         LOG.info(f"yt-dlp downloaded following files : {temp_dir_files}")
         self.speak(f"I have downloaded {temp_dir_files[0][:-4]} from youtube")
+        wait_while_speaking()
         cp = self.ask_yesno("Would you like me to add this song to your local library ?", data=None)
+        wait_while_speaking()
         if cp == 'yes' :
             try : 
                 shutil.copyfile(temp_dir_files[0],self.local_path)
-                self.speak("")
+                self.speak("Successfully copied your file")
+                wait_while_speaking()
             except :
                 pass
         return [{

@@ -12,6 +12,7 @@ from mycroft.skills.audioservice import AudioService
 from mycroft.audio.services.vlc import VlcService
 from mycroft.audio import wait_while_speaking
 
+
 from websocket import create_connection
 
 import threading
@@ -270,7 +271,8 @@ class USBMusicSkill(CommonPlaySkill):
                 shutil.copyfile(f"{temp_dir}/{temp_dir_files[0]}",self.local_path)
                 self.speak("Successfully copied your file")
                 wait_while_speaking()
-            except :
+            except Exception as e :
+                LOG.info(f"Couldnt copy file:{e}")
                 pass
         return [{
                 "location":f"{temp_dir}/{temp_dir_files[0]}",

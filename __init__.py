@@ -244,7 +244,8 @@ class USBMusicSkill(CommonPlaySkill):
             return found_list
 
     def search_music_youtube(self,phrase):
-        phrase = phrase[:-10]
+        phrase = phrase[:-10] # removing "on youtube"
+        self.speak(f"Searching for {phrase} on youtube")
         LOG.info(f"Searching Youtube for {phrase}")
         temp_dir = '/home/pi/.usb-music/temp'
         try :
@@ -260,6 +261,14 @@ class USBMusicSkill(CommonPlaySkill):
         # LOG.info(f"YTB-DL returned with -- error :  {error}")
         temp_dir_files = os.listdir(temp_dir)
         LOG.info(f"yt-dlp downloaded following files : {temp_dir_files}")
+        self.speak(f"I have downloaded {temp_dir_files[0][:-4]} from youtube")
+        cp = self.ask_yesno("Would you like me to add this song to your local library ?", data=None)
+        if cp == 'yes' :
+            try : 
+                shutil.copyfile(temp_dir_files[0],self.local_path)
+                self.speak("")
+            except :
+                pass
         return [{
                 "location":f"{temp_dir}/{temp_dir_files[0]}",
                 "label": "Unknown",

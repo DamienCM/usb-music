@@ -244,6 +244,7 @@ class USBMusicSkill(CommonPlaySkill):
             return found_list
 
     def search_music_youtube(self,phrase):
+        phrase = phrase[:-10]
         LOG.info(f"Searching Youtube for {phrase}")
         temp_dir = '/home/pi/.usb-music/temp'
         try :
@@ -253,7 +254,7 @@ class USBMusicSkill(CommonPlaySkill):
         os.mkdir(temp_dir)
         # bash_command = f'yt-dlp -x -f mp4 "ytsearch1:{phrase}" --geo-bypass --metadata-from-title "(?P<artist>.+?) - (?P<title>.+)" --xattrs --embed-thumbnail -o /home/pi/.usb-music/temp/request'
         # LOG.info(f"YTB-DL :  {bash_command}")
-        process = subprocess.run(["yt-dlp", "-x", "-f", "mp4", f"ytsearch1:{phrase[:-10]}","--geo-bypass", "--metadata-from-title", '"(?P<artist>.+?) - (?P<title>.+)"',"--xattrs","--embed-thumbnail","-o","'/home/pi/.usb-music/temp'/%(title)s-%(id)s.%(ext)s"], stdout=subprocess.PIPE)
+        process = subprocess.run(["yt-dlp", "-x", "-f", "mp4", f"ytsearch1:{phrase}","--geo-bypass", "--metadata-from-title", '"(?P<artist>.+?) - (?P<title>.+)"',"--xattrs","--embed-thumbnail","-o","'/home/pi/.usb-music/temp'/%(title)s-%(id)s.%(ext)s"], stdout=subprocess.PIPE)
         # output, error = process.communicate()
         # LOG.info(f"YTB-DL returned with -- output :  {output}")
         # LOG.info(f"YTB-DL returned with -- error :  {error}")

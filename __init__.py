@@ -259,7 +259,7 @@ class USBMusicSkill(CommonPlaySkill):
         # LOG.info(f"YTB-DL returned with -- error :  {error}")
         temp_dir_files = os.listdir(temp_dir)
         return [{
-                "location":f"{temp_dir}/{temp_dir_files[0]}"
+                "location":f"{temp_dir}/{temp_dir_files[0]}",
                 "label": "Unknown",
                 "album": "Unknown",
                 "artist": "Unknown",

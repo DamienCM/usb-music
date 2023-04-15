@@ -241,8 +241,8 @@ class USBMusicSkill(CommonPlaySkill):
             found_list = self.search_music_youtube(search_string)
             self.mediaplayer.clear_list()
             found_list = self.merge_library(found_list,self.song_list)
-            self.mediaplayer.add_list(found_list)
-            self.mediaplayer.next()
+            self.CPS_start(f"youtube request song is beign played : {search_string}","youtube_query")
+
         else:
             found_list = self.search_music_item(search_string, category=str(category))
         if len(found_list) > 0:

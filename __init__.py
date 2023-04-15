@@ -242,7 +242,7 @@ class USBMusicSkill(CommonPlaySkill):
             self.mediaplayer.stop()
             self.mediaplayer.clear_list()
             self.mediaplayer = VlcService(config={'low_volume': 10, 'duck': True})
-            found_list = self.merge_library(found_list,self.song_list)
+            self.found_list= self.merge_library(found_list,self.song_list)
             self.CPS_start(f"youtube request song is beign played : {search_string}","youtube_query")
 
         else:
@@ -513,7 +513,7 @@ class USBMusicSkill(CommonPlaySkill):
         LOG.info( phrase + ' ' + str(data))
         # random.shuffle(self.song_list,random.random)
         for each_song in self.song_list:
-            LOG.info("CPS Now Playing... " + each_song['label'] + " from location: " + each_song['location'])
+            # LOG.info("CPS Now Playing... " + each_song['label'] + " from location: " + each_song['location'])
             url = each_song['location']
             tracklist.append(url)
         # if data != None:   

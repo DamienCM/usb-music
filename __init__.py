@@ -239,6 +239,8 @@ class USBMusicSkill(CommonPlaySkill):
                 return
         elif str(category)=="youtube_query":
             found_list = self.search_music_youtube(search_string)
+            self.mediaplayer.clear_list()
+            found_list = self.merge_library(found_list,self.song_list)
         else:
             found_list = self.search_music_item(search_string, category=str(category))
         if len(found_list) > 0:
@@ -264,6 +266,14 @@ class USBMusicSkill(CommonPlaySkill):
         LOG.info(f"yt-dlp downloaded following files : {temp_dir_files}")
         self.speak(f"I have downloaded {temp_dir_files[0][:-4]} from youtube")
         wait_while_speaking()
+        ret_list= [{
+                "location":f"{temp_dir}/{temp_dir_files[0]}",
+                "label": "Unknown",
+                "album": "Unknown",
+                "artist": "Unknown",
+                "source": "Youtube"
+                }]
+
         cp = self.ask_yesno("Would you like me to add this song to your local library ?", data=None)
         wait_while_speaking()
         if cp == 'yes' :
@@ -274,13 +284,9 @@ class USBMusicSkill(CommonPlaySkill):
             except Exception as e :
                 LOG.info(f"Couldnt copy file:{e}")
                 pass
-        return [{
-                "location":f"{temp_dir}/{temp_dir_files[0]}",
-                "label": "Unknown",
-                "album": "Unknown",
-                "artist": "Unknown",
-                "source": "Youtube"
-                }]
+            
+        
+        return ret_list
 
 
     def search_music_item(self, search_item, category="label"):
@@ -496,12 +502,12 @@ class USBMusicSkill(CommonPlaySkill):
             Called by the playback control skill to start playback if the
             skill is selected (has the best match level)
         """
-        self.mediaplayer.clear_list()
+        # self.mediaplayer.clear_list()
         tracklist = []
         LOG.info('USBMusicSkill, Playback received the following phrase')
         LOG.info('and Data: ')
         LOG.info( phrase + ' ' + str(data))
-        random.shuffle(self.song_list,random.random)
+        # random.shuffle(self.song_list,random.random)
         for each_song in self.song_list:
             LOG.info("CPS Now Playing... " + each_song['label'] + " from location: " + each_song['location'])
             url = each_song['location']

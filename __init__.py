@@ -512,11 +512,11 @@ class USBMusicSkill(CommonPlaySkill):
             LOG.info("CPS Now Playing... " + each_song['label'] + " from location: " + each_song['location'])
             url = each_song['location']
             tracklist.append(url)
-        if data != None:   
-            for each_song in data:
-                LOG.info("CPS Now Playing... " + each_song['label'] + " from location: " + each_song['location'])
-                url = each_song['location']
-                tracklist.insert(0,url)
+        # if data != None:   
+        #     for each_song in data:
+        #         LOG.info("CPS Now Playing... " + each_song['label'] + " from location: " + each_song['location'])
+        #         url = each_song['location']
+        #         tracklist.insert(0,url)
         # randomizing song order
         # random.shuffle(tracklist,random.random)
         #LOG.info(str(tracklist))

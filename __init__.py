@@ -242,7 +242,8 @@ class USBMusicSkill(CommonPlaySkill):
             self.mediaplayer.stop()
             self.mediaplayer.clear_list()
             self.mediaplayer = VlcService(config={'low_volume': 10, 'duck': True})
-            self.found_list= self.merge_library(found_list,self.song_list)
+            self.song_list= self.merge_library(found_list,self.song_list)
+ 
             self.CPS_start(f"youtube request song is beign played : {search_string}","youtube_query")
 
         else:
